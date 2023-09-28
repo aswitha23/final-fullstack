@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign In</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .signin-container { 
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            width: 300px;
+        }
+        .signin-container h2 {
+            margin-bottom: 10px;
+        }
+        .signin-form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        .signin-form button {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        .signup_link {
+            margin-top: 10px; /* Add some space between the button and the link */
+            text-align: center;
+        }
+        .signup_link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="signin-container">
+        <h2>Sign In</h2>
+        <form class="signin-form" action="signup" method="post">
+            <input type="text" name="username" placeholder="username" required>
+            <input type="email" name="email" placeholder="email" required>
+            <input type="password" name="password" placeholder="password" required>
+            <button type="submit">Sign In</button>
+        </form>
+        <div class="signup_link">
+            Already a member? <a href="login.html">Login</a>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const messageDiv = document.getElementById('message');
+            const loaderDiv = document.getElementById('loader');
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const loginSuccess = urlParams.get('loginSuccess');
+
+            if (loginSuccess === 'true') {
+                messageDiv.style.color = 'blue';
+                messageDiv.innerText = 'Login successful! Redirecting...';
+                messageDiv.style.display = 'block';
+
+                setTimeout(() => {
+                    window.location.href = '/success.html'; 
+                }, 2000); // Delay in milliseconds
+            } else if (loginSuccess === 'false') {
+                messageDiv.style.color = 'red';
+                messageDiv.innerText = 'Incorrect username or password. Please try again.';
+                messageDiv.style.display = 'block';
+            } 
+
+            // Show loading indicator during form submission
+            const loginForm = document.querySelector('form');
+            loginForm.addEventListener('submit', () => {
+                loaderDiv.style.display = 'block';
+            });
+        });
+    </script>
+
+</body>
+</html>
